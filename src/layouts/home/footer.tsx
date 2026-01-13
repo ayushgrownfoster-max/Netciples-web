@@ -20,11 +20,11 @@ export default function Footer() {
 
           {/* SOCIAL ICONS */}
           <div className="tw:flex tw:gap-4">
-            <Link href="#">
+            <Link href="https://www.linkedin.com/company/netciples/">
               <Image src="/images/linkedin.svg" width={36} height={36} alt="LinkedIn" />
             </Link>
 
-            <Link href="#">
+            <Link href="https://www.instagram.com/netciples?igsh=dWZ4d3NjODB4Mnpi">
               <Image src="/images/instagram.svg" width={36} height={36} alt="Instagram" />
             </Link>
 
@@ -32,9 +32,9 @@ export default function Footer() {
               <Image src="/images/facebook.svg" width={36} height={36} alt="Facebook" />
             </Link>
 
-            <Link href="#">
+            {/* <Link href="#">
               <Image src="/images/twitter.svg" width={36} height={36} alt="Twitter / X" />
-            </Link>
+            </Link> */}
           </div>
         </div>
 
