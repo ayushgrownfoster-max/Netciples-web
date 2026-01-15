@@ -1,10 +1,12 @@
 'use client';
 
 import * as Yup from 'yup';
+import { toast } from 'sonner';
 import { useFormik } from 'formik';
 import { CONFIG } from '@/global-config';
 import { useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
+import { useApplyJob } from '@/store/use-apply';
 
 interface ApplyJobModalProps {
   job: string | null;
@@ -13,13 +15,13 @@ interface ApplyJobModalProps {
 }
 
 const validationSchema = Yup.object({
-  coverLetter: Yup.string().required('Cover letter is required'),
+  coverLetter: Yup.string().trim().optional(),
   resume: Yup.mixed().required('Resume is required'),
 });
 
 export default function ApplyModal({ job, onClose, isOpen }: ApplyJobModalProps) {
   const [file, setFile] = useState<File | null>(null);
-
+  const applyJob = useApplyJob();
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : '';
     return () => {
@@ -34,12 +36,26 @@ export default function ApplyModal({ job, onClose, isOpen }: ApplyJobModalProps)
       resumeTypeError: '',
       resumeSizeError: '',
     },
-
     validationSchema,
 
-    onSubmit: (values) => {
-      console.log('FORM SUBMITTED:', values);
-      onClose();
+    onSubmit: async (values) => {
+      try {
+        const data: FormData = new FormData();
+        data.append('role', job || '');
+        data.append('resume', values.resume as File);
+        if (values.coverLetter) {
+          data.append('coverLetter', values.coverLetter);
+        }
+        const response = await applyJob.mutateAsync(data);
+        toast.success(response.message);
+        onClose();
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          toast.error(error.message);
+        } else {
+          toast.error('An unknown error occurred');
+        }
+      }
     },
   });
 

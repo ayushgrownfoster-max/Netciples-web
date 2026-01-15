@@ -3,10 +3,12 @@ import 'leaflet/dist/leaflet.css';
 
 import type { Metadata, Viewport } from 'next';
 
+import { Toaster } from 'sonner';
 // import { Inter } from 'next/font/google';
 import { Noto_Sans } from 'next/font/google';
 import HomeLayout from '@/layouts/home/layout';
 import { StoreProvider } from '@/store/providers';
+import ReactQueryProvider from '@/lib/react-query';
 
 import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
@@ -92,11 +94,14 @@ export default async function RootLayout({ children }: RootLayoutProps) {
                 modeStorageKey={themeConfig.modeStorageKey}
                 defaultMode={themeConfig.defaultMode}
               >
-                <MotionLazy>
-                  <ProgressBar />
-                  <SettingsDrawer defaultSettings={defaultSettings} />
-                  <HomeLayout>{children}</HomeLayout>
-                </MotionLazy>
+                <Toaster position="top-right" richColors closeButton/>
+                <ReactQueryProvider>
+                  <MotionLazy>
+                    <ProgressBar />
+                    <SettingsDrawer defaultSettings={defaultSettings} />
+                    <HomeLayout>{children}</HomeLayout>
+                  </MotionLazy>
+                </ReactQueryProvider>
               </ThemeProvider>
             </AppRouterCacheProvider>
           </SettingsProvider>
