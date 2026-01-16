@@ -7,6 +7,7 @@ type ContactFormData = {
   email: string;
   countryCode: string;
   phone: string;
+  companyName: string;
   inquiryType: string;
   message: string;
 };

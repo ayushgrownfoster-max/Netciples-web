@@ -9,7 +9,10 @@ import { useRef, useState, useEffect } from 'react';
 import { useCreateContact } from '@/store/use-contact';
 
 const validationSchema = Yup.object({
-  name: Yup.string().trim().required('Name is required').max(50, 'Name must be at most 50 characters'),
+  name: Yup.string()
+    .trim()
+    .required('Name is required')
+    .max(50, 'Name must be at most 50 characters'),
   email: Yup.string().trim().email('Enter a valid email').required('Email is required'),
   phone: Yup.string()
     .required('Phone Number is required')
@@ -17,14 +20,19 @@ const validationSchema = Yup.object({
     .matches(/^[0-9]*$/, 'Only numbers are allowed')
     .min(5, 'Phone number must be at least 5 digits')
     .max(15, 'Phone number cannot exceed 15 digits'),
-  company: Yup.string().trim().required('Company name is required').max(50, 'Company name must be at most 50 characters'),
+  company: Yup.string()
+    .trim()
+    .required('Company name is required')
+    .max(50, 'Company name must be at most 50 characters'),
 
   inquiry: Yup.string().trim().required('Please Select inquiry type'),
-  otherText: Yup.string().trim().when('inquiry', {
-    is: 'Other',
-    then: (schema) => schema.trim().required('Please describe your inquiry'),
-    otherwise: (schema) => schema.notRequired(),
-  }),
+  otherText: Yup.string()
+    .trim()
+    .when('inquiry', {
+      is: 'Other',
+      then: (schema) => schema.required('Please describe your inquiry'),
+      otherwise: (schema) => schema.notRequired(),
+    }),
 });
 
 export default function ContactSection() {
@@ -74,30 +82,29 @@ export default function ContactSection() {
       inquiry: '',
       otherText: '',
       message: '',
-      countryCode: "+91"
+      countryCode: '+91',
     },
 
     validationSchema,
 
-    onSubmit: async(values) => {
-      try{
+    onSubmit: async (values) => {
+      try {
         const data = {
           name: values.name,
           email: values.email,
           countryCode: values.countryCode,
           phone: values.phone,
-          inquiryType: values.inquiry !=='Other'? values.inquiry: values.otherText,
+          companyName: values.company,
+          inquiryType: values.inquiry !== 'Other' ? values.inquiry : values.otherText,
           message: values.message,
-        }
+        };
         const response = await createContact.mutateAsync(data);
         toast.success(response.message);
         clearFormValues();
-      } catch (error: unknown) {
-        if (error instanceof Error) {
-          toast.error(error.message);
-        } else {
-          toast.error('An unknown error occurred');
-        }
+      } catch (error: any) {
+        const msg = error?.response?.data?.message || error?.message || 'An unknown error occurred';
+
+        toast.error(msg);
       }
     },
   });
@@ -367,7 +374,10 @@ export default function ContactSection() {
               </span>
             </div>
 
-            <button type="submit" className="tw:bg-primary tw:cursor-pointer tw:hover:bg-[#0285d1] tw:sm:max-w-[180px] tw:text-[14px] tw:sm:text-[16px] tw:text-white tw:py-3 tw:sm:py-3 tw:rounded-2xl tw:text-lg">
+            <button
+              type="submit"
+              className="tw:bg-primary tw:cursor-pointer tw:hover:bg-[#0285d1] tw:sm:max-w-[180px] tw:text-[14px] tw:sm:text-[16px] tw:text-white tw:py-3 tw:sm:py-3 tw:rounded-2xl tw:text-lg"
+            >
               Submit
             </button>
           </form>
@@ -401,7 +411,9 @@ export default function ContactSection() {
                 />
                 <div>
                   <p className="body_text_style">Email</p>
-                  <p className="tw:text-[16px] tw:sm:text-lg tw:font-medium">info@netciples.com.au</p>
+                  <p className="tw:text-[16px] tw:sm:text-lg tw:font-medium">
+                    info@netciples.com.au
+                  </p>
                 </div>
               </div>
 
@@ -429,16 +441,12 @@ export default function ContactSection() {
 
             <div className="tw:grid tw:grid-cols-1 tw:sm:grid-cols-2 tw:gap-6">
               <div>
-                <p className="body_text_style">
-                  Monday - Friday
-                </p>
+                <p className="body_text_style">Monday - Friday</p>
                 <p className="tw:text-[16px] tw:sm:text-lg tw:font-medium">9:00 am - 6:00 pm</p>
               </div>
 
               <div>
-                <p className="body_text_style">
-                  Saturday - Sunday
-                </p>
+                <p className="body_text_style">Saturday - Sunday</p>
                 <p className="tw:text-[16px] tw:sm:text-lg tw:font-medium">9:00 am - 12:00 pm</p>
               </div>
             </div>

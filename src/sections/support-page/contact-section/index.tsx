@@ -8,9 +8,11 @@ import { countryCodes } from '@/data/CountryCode';
 import { useRef, useState, useEffect } from 'react';
 import { useCreateContact } from '@/store/use-contact';
 
-
 const validationSchema = Yup.object({
-  name: Yup.string().trim().required('Name is required').max(50, 'Name must be at most 50 characters'),
+  name: Yup.string()
+    .trim()
+    .required('Name is required')
+    .max(50, 'Name must be at most 50 characters'),
   email: Yup.string().trim().email('Enter a valid email').required('Email is required'),
   phone: Yup.string()
     .required('Phone Number is required')
@@ -18,14 +20,19 @@ const validationSchema = Yup.object({
     .matches(/^[0-9]*$/, 'Only numbers are allowed')
     .min(5, 'Phone number must be at least 5 digits')
     .max(15, 'Phone number cannot exceed 15 digits'),
-  company: Yup.string().trim().required('Company name is required').max(50, 'Company name must be at most 50 characters'),
+  company: Yup.string()
+    .trim()
+    .required('Company name is required')
+    .max(50, 'Company name must be at most 50 characters'),
 
   inquiry: Yup.string().trim().required('Please Select inquiry type'),
-  otherText: Yup.string().trim().when('inquiry', {
-    is: 'Other',
-    then: (schema) => schema.trim().required('Please describe your inquiry.'),
-    otherwise: (schema) => schema.notRequired(),
-  }),
+  otherText: Yup.string()
+    .trim()
+    .when('inquiry', {
+      is: 'Other',
+      then: (schema) => schema.required('Please describe your inquiry.'),
+      otherwise: (schema) => schema.notRequired(),
+    }),
 });
 
 export default function ContactDetailsSection() {
@@ -75,33 +82,32 @@ export default function ContactDetailsSection() {
       inquiry: '',
       otherText: '',
       message: '',
-      countryCode: "+91"
+      countryCode: '+91',
     },
 
     validationSchema,
-    onSubmit: async(values) => {
-      try{
+    onSubmit: async (values) => {
+      try {
         const data = {
           name: values.name,
           email: values.email,
           countryCode: values.countryCode,
           phone: values.phone,
-          inquiryType: values.inquiry !=='Other'? values.inquiry: values.otherText,
+          companyName: values.company,
+          inquiryType: values.inquiry !== 'Other' ? values.inquiry : values.otherText,
           message: values.message,
-        }
+        };
         const response = await createContact.mutateAsync(data);
         toast.success(response.message);
         clearFormValues();
-      } catch (error: unknown) {
-        if (error instanceof Error) {
-          toast.error(error.message);
-        } else {
-          toast.error('An unknown error occurred');
-        }
+      } catch (error: any) {
+        const msg = error?.response?.data?.message || error?.message || 'An unknown error occurred';
+
+        toast.error(msg);
       }
     },
   });
-   const clearFormValues = () => {
+  const clearFormValues = () => {
     formik.resetForm();
     setSelected('Select Inquiry Type');
     setOpen(false);
@@ -366,7 +372,10 @@ export default function ContactDetailsSection() {
               </span>
             </div>
 
-            <button type="submit" className="tw:bg-primary tw:cursor-pointer tw:hover:bg-[#0285d1] tw:sm:max-w-[180px] tw:text-[14px] tw:sm:text-[16px] tw:text-white tw:py-3 tw:sm:py-3 tw:rounded-2xl tw:text-lg">
+            <button
+              type="submit"
+              className="tw:bg-primary tw:cursor-pointer tw:hover:bg-[#0285d1] tw:sm:max-w-[180px] tw:text-[14px] tw:sm:text-[16px] tw:text-white tw:py-3 tw:sm:py-3 tw:rounded-2xl tw:text-lg"
+            >
               Submit
             </button>
           </form>
@@ -374,9 +383,7 @@ export default function ContactDetailsSection() {
 
         <div className="tw:flex tw:flex-col tw:relative tw:-z-1 tw:lg:justify-between tw:xl:justify-start tw:gap-7 tw:lg:max-w-[618px]">
           <div className="tw:bg-white tw:p-5 tw:sm:p-14 tw:lg:p-8 tw:xl:p-10 tw:rounded-2xl tw:sm:rounded-3xl tw:lg:h-[291px] tw:shadow-sm tw:border-0">
-            <h2 className="tw:text-[20px] tw:sm:text-[26px]] tw:font-semibold">
-              IT Support
-            </h2>
+            <h2 className="tw:text-[20px] tw:sm:text-[26px] tw:font-semibold">IT Support</h2>
             <hr className="tw:border-gray-200 tw:my-4 tw:sm:my-6" />
 
             <div className="tw:flex tw:flex-col tw:gap-7">
@@ -400,7 +407,9 @@ export default function ContactDetailsSection() {
                 />
                 <div>
                   <p className="body_text_style">Email</p>
-                  <p className="tw:text-[16px] tw:sm:text-lg tw:font-medium">info@netciples.com.au</p>
+                  <p className="tw:text-[16px] tw:sm:text-lg tw:font-medium">
+                    info@netciples.com.au
+                  </p>
                 </div>
               </div>
             </div>
