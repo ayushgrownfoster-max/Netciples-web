@@ -86,7 +86,7 @@ export default function ContactSection() {
           email: values.email,
           countryCode: values.countryCode,
           phone: values.phone,
-          inquiryType: values.inquiry,
+          inquiryType: values.inquiry !=='Other'? values.inquiry: values.otherText,
           message: values.message,
         }
         const response = await createContact.mutateAsync(data);

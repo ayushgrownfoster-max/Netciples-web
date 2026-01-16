@@ -1,25 +1,29 @@
 'use client';
 
 import * as Yup from 'yup';
+import { toast } from 'sonner';
 import { useFormik } from 'formik';
 import { CONFIG } from '@/global-config';
 import { countryCodes } from '@/data/CountryCode';
 import { useRef, useState, useEffect } from 'react';
+import { useCreateContact } from '@/store/use-contact';
+
 
 const validationSchema = Yup.object({
-  name: Yup.string().required('Name is required'),
-  email: Yup.string().email('Enter a valid email').required('Email is required'),
+  name: Yup.string().trim().required('Name is required').max(50, 'Name must be at most 50 characters'),
+  email: Yup.string().trim().email('Enter a valid email').required('Email is required'),
   phone: Yup.string()
     .required('Phone Number is required')
+    .trim()
     .matches(/^[0-9]*$/, 'Only numbers are allowed')
     .min(5, 'Phone number must be at least 5 digits')
     .max(15, 'Phone number cannot exceed 15 digits'),
-  company: Yup.string().required('Company name is required'),
+  company: Yup.string().trim().required('Company name is required').max(50, 'Company name must be at most 50 characters'),
 
-  inquiry: Yup.string().required('Please Select inquiry type'),
-  otherText: Yup.string().when('inquiry', {
+  inquiry: Yup.string().trim().required('Please Select inquiry type'),
+  otherText: Yup.string().trim().when('inquiry', {
     is: 'Other',
-    then: (schema) => schema.required('Please describe your inquiry.'),
+    then: (schema) => schema.trim().required('Please describe your inquiry.'),
     otherwise: (schema) => schema.notRequired(),
   }),
 });
@@ -29,7 +33,7 @@ export default function ContactDetailsSection() {
   const [selected, setSelected] = useState('Select Inquiry Type');
   const [openCode, setOpenCode] = useState(false);
   const [searchCode, setSearchCode] = useState('');
-
+  const createContact = useCreateContact();
   const [selectedCode, setSelectedCode] = useState({
     iso2: 'in',
     name: 'India',
@@ -71,15 +75,44 @@ export default function ContactDetailsSection() {
       inquiry: '',
       otherText: '',
       message: '',
+      countryCode: "+91"
     },
 
     validationSchema,
-
-    onSubmit: (values) => {
-      console.log('FORM SUBMITTED → ', values);
+    onSubmit: async(values) => {
+      try{
+        const data = {
+          name: values.name,
+          email: values.email,
+          countryCode: values.countryCode,
+          phone: values.phone,
+          inquiryType: values.inquiry !=='Other'? values.inquiry: values.otherText,
+          message: values.message,
+        }
+        const response = await createContact.mutateAsync(data);
+        toast.success(response.message);
+        clearFormValues();
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          toast.error(error.message);
+        } else {
+          toast.error('An unknown error occurred');
+        }
+      }
     },
   });
-
+   const clearFormValues = () => {
+    formik.resetForm();
+    setSelected('Select Inquiry Type');
+    setOpen(false);
+    setOpenCode(false);
+    setSearchCode('');
+    setSelectedCode({
+      iso2: 'in',
+      name: 'India',
+      code: '+91',
+    });
+  };
   return (
     <section className="tw:w-full tw:px-4 tw:md:px-6 tw:xl:px-0 tw:py-10 tw:sm:py-20 tw:max-w-[1240px] tw:mx-auto tw:mb-22">
       <div className="tw:grid tw:grid-cols-1 tw:lg:grid-cols-2 tw:gap-5 tw:xl:gap-2.5">
