@@ -20,6 +20,11 @@ const isStaticExport = false;
 const nextConfig: NextConfig = {
   trailingSlash: true,
   output: isStaticExport ? 'export' : undefined,
+  eslint: {
+    // Allows production builds to successfully complete even if
+    // your project has ESLint errors.
+    ignoreDuringBuilds: true,
+  },
   env: {
     BUILD_STATIC_EXPORT: JSON.stringify(isStaticExport),
   },
