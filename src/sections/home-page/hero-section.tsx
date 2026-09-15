@@ -30,15 +30,15 @@ export default function HeroSection() {
 
             {/* Main Display Headline */}
             <h1 className="tw:mt-6 tw:text-[38px] tw:sm:text-[50px] tw:lg:text-[56px] tw:font-extrabold tw:leading-[1.14] tw:tracking-tight tw:text-[#0B192C]">
-              Secure Technology Foundations Built for{' '}
+              Engineering Technology That{' '}
               <span className="tw:bg-gradient-to-r tw:from-[#176AB3] tw:to-[#00A3FF] tw:bg-clip-text tw:text-transparent">
-                Scalable Business Performance
+                Powers Modern Business
               </span>
             </h1>
 
             {/* Subtitle Paragraph */}
             <p className="tw:mt-6 tw:text-[16px] tw:sm:text-[18px] tw:leading-[1.65] tw:text-slate-600 tw:max-w-2xl">
-              Netciples helps enterprise &amp; financial services organisations streamline operations, enhance cybersecurity compliance, and engineer resilient cloud infrastructure built for long-term growth.
+              Netciples helps organisations modernize their operations, strengthen resilience through Managed IT Services, Software Development and Strategic IT Consulting. We engineer secure, scalable and practical solutions that reduce complexity, improve operational efficiency and support long-term business growth.
             </p>
 
             {/* CTA Button Pair */}

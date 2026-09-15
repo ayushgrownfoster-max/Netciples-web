@@ -103,9 +103,8 @@ export default function MissionVisionSection() {
             {/* OUR MISSION CARD */}
             <div className="tw:p-7 tw:rounded-2xl tw:border-t-4 tw:border-[#176AB3] tw:bg-white tw:shadow-sm tw:border-x tw:border-b tw:border-slate-200 tw:flex tw:flex-col tw:justify-between">
               <div>
-
-                <h3 className="tw:mt-4 tw:text-[18px] tw:sm:text-[20px] tw:font-extrabold tw:text-[#0B192C] tw:leading-snug">
-                  To deliver resilient, transparent IT solutions that empower organisations to operate with total confidence.
+                <h3 className="tw:text-[18px] tw:sm:text-[20px] tw:font-extrabold tw:text-[#0B192C] tw:leading-snug">
+                  Our Mission
                 </h3>
                 <p className="tw:mt-3 tw:text-[14px] tw:leading-relaxed tw:text-slate-600">
                   At Netciples, our mission is to engineer reliable technology foundations tailored to your business goals. We eliminate technical debt, enhance operational transparency, and partner closely with your team to support sustainable growth.
@@ -116,9 +115,8 @@ export default function MissionVisionSection() {
             {/* OUR VISION CARD */}
             <div className="tw:p-7 tw:rounded-2xl tw:border-t-4 tw:border-[#00A3FF] tw:bg-white tw:shadow-sm tw:border-x tw:border-b tw:border-slate-200 tw:flex tw:flex-col tw:justify-between">
               <div>
-
-                <h3 className="tw:mt-4 tw:text-[18px] tw:sm:text-[20px] tw:font-extrabold tw:text-[#0B192C] tw:leading-snug">
-                  The trusted technology partner for forward-thinking enterprises.
+                <h3 className="tw:text-[18px] tw:sm:text-[20px] tw:font-extrabold tw:text-[#0B192C] tw:leading-snug">
+                  Our Vision
                 </h3>
                 <p className="tw:mt-3 tw:text-[14px] tw:leading-relaxed tw:text-slate-600">
                   Netciples transforms fragmented legacy environments into modern, secure technical assets. Driven by architectural clarity and operational excellence, our engineering frameworks deliver long-term reliability and peace of mind.
