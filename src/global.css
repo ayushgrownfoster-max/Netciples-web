@@ -1,6 +1,7 @@
 /** **************************************
 * Fonts: app
 *************************************** */
+
 @import '@fontsource-variable/public-sans';
 
 @import '@fontsource/barlow/400.css';
@@ -24,8 +25,7 @@
 @import './components/scrollbar/styles.css';
 
 
-/* tailwind css */
-/* @prefix 'tw-'; */
+/* tailwind css v4 */
 @import "tailwindcss" prefix(tw);
 
 /** **************************************
@@ -35,7 +35,7 @@
   --color-primary: var(--primary);
 }
 
-:root{
+:root {
   --primary: #00A3FF;
 }
 
@@ -43,6 +43,7 @@ html {
   height: 100%;
   -webkit-overflow-scrolling: touch;
 }
+
 body,
 #root,
 #root__layout {
@@ -54,48 +55,80 @@ body,
   font-family: 'Noto Sans Symbols Variable', sans-serif !important;
   background-color: #FBFCFF !important;
 }
+
 img {
   max-width: 100%;
   vertical-align: middle;
 }
+
 ul {
   margin: 0;
   padding: 0;
   list-style-type: none;
 }
+
 input[type='number'] {
   -moz-appearance: textfield;
   appearance: none;
 }
+
 input[type='number']::-webkit-outer-spin-button {
   margin: 0;
   -webkit-appearance: none;
 }
+
 input[type='number']::-webkit-inner-spin-button {
   margin: 0;
   -webkit-appearance: none;
 }
 
 .text_style {
-  @apply tw:text-black tw:text-[14px] tw:md:text-[18px]  tw:lg:text-[20px] tw:xl:text-[20px];
+  color: #000;
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  .text_style { font-size: 18px; }
+}
+@media (min-width: 1024px) {
+  .text_style { font-size: 20px; }
+}
+@media (min-width: 1280px) {
+  .text_style { font-size: 20px; }
 }
 
 .body_text_style {
-  @apply tw:text-gray-600 tw:text-[16px] tw:font-normal;
+  color: #4B5563;
+  font-size: 16px;
+  font-weight: 400;
 }
 
 /* .heading1 {
-  @apply tw:text-xl tw:md:text-4xl tw:lg:text-5xl;
+  font-size: 1.25rem;
 }
+@media (min-width: 768px) { .heading1 { font-size: 2.25rem; } }
+@media (min-width: 1024px) { .heading1 { font-size: 3rem; } } */
 
-.heading2 {
-  @apply tw:text-3xl tw:md:text-4xl;
-} */
+/* .heading2 {
+  font-size: 1.875rem;
+}
+@media (min-width: 768px) { .heading2 { font-size: 2.25rem; } } */
 
 .heading1 {
-  @apply tw:text-[26px] tw:md:text-4xl tw:lg:text-5xl;
+  font-size: 26px;
+}
+@media (min-width: 768px) {
+  .heading1 { font-size: 2.25rem; }
+}
+@media (min-width: 1024px) {
+  .heading1 { font-size: 3rem; }
 }
 
 .heading2 {
-  @apply tw:text-[24px] tw:md:text-3xl tw:lg:text-4xl;
+  font-size: 24px;
+}
+@media (min-width: 768px) {
+  .heading2 { font-size: 1.875rem; }
+}
+@media (min-width: 1024px) {
+  .heading2 { font-size: 2.25rem; }
 }

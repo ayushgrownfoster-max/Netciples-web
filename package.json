@@ -5,7 +5,7 @@
   "description": "Next Starter & TypeScript",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 8083 --turbopack",
+    "dev": "next dev -p 8083",
     "start": "next start -p 8083",
     "build": "next build",
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
@@ -46,7 +46,6 @@
     "@mui/x-date-pickers": "^8.12.0",
     "@mui/x-tree-view": "^8.12.0",
     "@reduxjs/toolkit": "^2.10.1",
-    "@tailwindcss/postcss": "^4.1.17",
     "@tanstack/react-query": "^5.90.17",
     "@types/redux-logger": "^3.0.13",
     "autosuggest-highlight": "^3.3.4",
@@ -77,6 +76,7 @@
   "devDependencies": {
     "@eslint/js": "^9.36.0",
     "@svgr/webpack": "^8.1.0",
+    "@tailwindcss/postcss": "^4.3.3",
     "@types/autosuggest-highlight": "^3.2.3",
     "@types/leaflet": "^1.9.21",
     "@types/node": "^24.5.2",

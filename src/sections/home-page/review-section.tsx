@@ -75,7 +75,7 @@ export default function ReviewSection() {
         </div>
 
         {/* RIGHT SWIPER SLIDER */}
-        <div className="tw:flex-1  tw:max-w-250 tw:relative">
+        <div className="tw:flex-1 tw:max-w-250 tw:relative">
           <Swiper
             modules={[Navigation]}
             navigation={{
@@ -150,12 +150,12 @@ export default function ReviewSection() {
                     tw:-left-3
                     tw:lg:-left-4
                     tw:-translate-y-1/2
-                  tw:bg-white
+                    tw:bg-white
                     tw:w-8 tw:h-8
                     tw:rounded-full
                     tw:flex tw:items-center tw:justify-center
                     tw:shadow-md
-                    hover:tw:bg-gray-100
+                    tw:hover:bg-gray-100
                     tw:z-5
                     tw:cursor-pointer
 
@@ -179,7 +179,7 @@ export default function ReviewSection() {
               tw:rounded-full
               tw:flex tw:items-center tw:justify-center
               tw:shadow-md
-              hover:tw:bg-gray-100
+              tw:hover:bg-gray-100
               tw:z-5
               tw:cursor-pointer
 
@@ -193,4 +193,3 @@ export default function ReviewSection() {
     </section>
   );
 }
-
